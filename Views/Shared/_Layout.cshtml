@@ -27,13 +27,26 @@
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
 
                     <li>@Html.ActionLink("Forum", "Index", "Article")</li>
+                    <li>@Html.ActionLink("Trenerzy", "Index", "Instructors")</li>
+                    <li>@Html.ActionLink("Treningi individualne", "Index", "IndividualTrainings")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
+        @if (ViewBag.TrainingDate != null && ViewBag.Place != null)
+        {
+            <h2 style="color:orangered">
+                PRZYPOMNIENIE: Trening dnia:
+                @ViewBag.TrainingDate
+                w
+                @ViewBag.Place
+            </h2>
+        }
         @RenderBody()
+
+
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Moja aplikacja ASP.NET</p>
