@@ -21,11 +21,10 @@ namespace MyClub.Models
         public int ArticleID { get; set; }
 
         [Required]
-        public string User_answer { get; set; }
+        public string UsersAnswer { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data opublikowania")]
         public DateTime Date { get; set; }
 

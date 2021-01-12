@@ -22,8 +22,8 @@ namespace MyClub.DAL
 
             var user0 = new ApplicationUser { UserName = "admin@admin.com" };
             string password0 = "Admin.123";
-            userManager.Create(user0, password0);
-            userManager.AddToRole(user0.Id, "ADMIN");
+            var status = userManager.Create(user0, password0);
+            userManager.AddToRole(user0.Id, "Admin");
 
             var user1 = new ApplicationUser { UserName = "qwer@qwer.com" };
             string password1 = "Qwer.123";
@@ -59,10 +59,21 @@ namespace MyClub.DAL
 
             var articles = new List<Article>
             {
-                new Article { UserID = users[1].ID, Subject = "temat 1", Content = "Jakaś treść" },
-                new Article { UserID = users[2].ID, Subject = "temat 2", Content = "Jakaś treść 2." },
+                new Article { User = users[1], Subject = "temat 1", Content = "Jakaś treść" },
+                new Article { User = users[2], Subject = "temat 2", Content = "Jakaś treść 2." },
             };
             articles.ForEach(a => context.Articles.Add(a));
+            context.SaveChanges();
+
+            var answers = new List<Answer>
+            {
+                new Answer { User = users[4], Article = articles[0], Date = DateTime.Parse("2021-01-07 13:09"), UsersAnswer = "Kom 1" },
+                new Answer { User = users[3], Article = articles[0], Date = DateTime.Parse("2021-01-07 13:46"), UsersAnswer = "Kom 2" },
+                new Answer { User = users[2], Article = articles[0], Date = DateTime.Parse("2021-01-07 15:11"), UsersAnswer = "Kom 3" },
+                new Answer { User = users[4], Article = articles[0], Date = DateTime.Parse("2021-01-07 15:23"), UsersAnswer = "Kom 4" },
+                new Answer { User = users[3], Article = articles[1], Date = DateTime.Parse("2021-01-10 15:11"), UsersAnswer = "Kom 1" },
+            };
+            answers.ForEach(a => context.Answers.Add(a));
             context.SaveChanges();
 
         }

@@ -10,7 +10,7 @@ namespace MyClub.DAL
 {
     public class MyClubContext : DbContext
     {
-        public MyClubContext() : base("MySprotsClubContext")
+        public MyClubContext() : base("DefaultConnection")
         {
 
         }

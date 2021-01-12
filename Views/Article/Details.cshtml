@@ -3,40 +3,83 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
+<br />
+<h1 class="text-center">Forum</h1>
 
 <div>
-    <h4>Article</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </dt>
+    <span style="float:right;">
+        @if (Context.User.IsInRole("Admin") || Context.User.IsInRole("Trainer"))
+        {
+            <a href='@Url.Action("Edit", "Article", new { id = Model.ID })'>
+                <button type="button" class="btn btn-primary">Edytuj artykuł</button>
+            </a>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
+            using (Html.BeginForm("DeleteArticle", "Article", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Subject)
-        </dt>
+                <div style="float:right;" class="form-actions no-color">
+                    <input type="hidden" name="id" value="@Model.ID" class="btn btn-danger" />
+                    <input type="submit" value="Usuń" class="btn btn-danger" />
+                </div>
+                <span style="clear:both;"></span>
+            }
+        }
+    </span>
+    <span style="clear:both;"></span>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subject)
-        </dd>
+    <h1>@Model.Subject</h1>
+    <br />
+    <br />
+    <p>@Model.Content</p>
+    <hr style="color: red;" />
+    <div style="padding: 20px;">
+        @foreach (var item in @ViewBag.Answers)
+        {
+            <p style="float:right; font-size:13px">@item.Date</p>
+            <p style="font-size:13px;">@item.User.Name @item.User.Surname</p>
+            <span style="clear:both;"></span>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+            if (Context.User.Identity.Name == item.User.UserName)
+            {
+                using (Html.BeginForm("DaleteAnswer", "Article", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
+                    <div style="float:right;" class="form-actions no-color">
+                        <input type="hidden" name="id" value="@item.ID" class="btn btn-danger" />
+                        <input type="submit" value="Usuń" class="btn btn-danger" />
+                    </div>
+                    <span style="clear:both;"></span>
+                }
+            }
 
-    </dl>
+            <p>@item.UsersAnswer</p>
+            <hr />
+        }
+    </div>
+    <div class="text-center">
+        @if (Request.IsAuthenticated)
+        {
+            using (Html.BeginForm("AddAnswer", "Article", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                {
+                    <input type="hidden" value="@Model.ID" name="articleID" />
+                    <div class="form-group text-center">
+                        <textarea name="answer" id="answer" rows="4" cols="100" style="max-width: 900px; margin-left:auto; margin-right:auto;" class="form-control" placeholder="Komentarz..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Dodaj komentarz" class="btn btn-success" />
+                    </div>
+                }
+            }
+
+        }
+        else
+        {
+            <p> Zaloguj się aby dodać komentarz!</p>
+        }
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
