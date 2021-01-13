@@ -17,8 +17,8 @@ namespace MyClub.Controllers
                 if (db.IndividualTrainings.Any(x => x.User.UserName == User.Identity.Name && x.Date.Year == DateTime.Now.Year && x.Date.Month == DateTime.Now.Month && x.Date.Day == (DateTime.Now.Day + 1)) == true)
                 {
                     var it = db.IndividualTrainings.Where(x => x.User.UserName == User.Identity.Name && x.Date.Year == DateTime.Now.Year && x.Date.Month == DateTime.Now.Month && x.Date.Day == (DateTime.Now.Day + 1)).First();
-                    ViewBag.TrainingDate = it.Date;
-                    ViewBag.Place = it.Place;
+                    Session["TrainingDate"] = it.Date;
+                    Session["Place"] = it.Place;
                 }
 
             }
