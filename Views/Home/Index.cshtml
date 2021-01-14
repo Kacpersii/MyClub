@@ -1,48 +1,34 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
-}
-
-@if (Context.User.IsInRole("Admin"))
-{
-    <h1>Admin</h1>
-}
-else if (Context.User.IsInRole("User"))
-{
-    <h1>User</h1>
-}
-else if (Context.User.IsInRole("Trainer"))
-{
-    <h1>Trainer</h1>
-}
-else
-{
-    <h1>anon</h1>
+    ViewBag.Title = "Strona główna";
 }
 
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2 class="text-center">Moje treningi indywidualne</h2>
+<div class="row" style="margin-top: 40px;">
+    <div class="jumbotron col-md-12">
+        <h2 class="text-center">MyClub</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            MyClub jest to system do zarządzania klubem sportowym. Pozwala użytkownikom umawiać się na treningi indywidualne do trenerów. Znajduje się tu także forum, na którym trenerzy mogą udostępniać własne wpisy. 
+        </p>
+    </div>
+    <div class="col-md-8">
+        <h2>Informacje</h2>
+        <p>
+            Nasz klub sportowy charakteryzuje znakomita lokalizacja, przyjazna atmosfera, najwyższej jakości sprzęt treningowy oraz wykwalifikowany i pomocny personel - wszystko to w najkorzystniejszej cenie na rynku. Trenuj jak chcesz i ile chcesz, a potem relaksuj się w saunie.
+        </p>
+        <p>
+            Doskonałe położenie klubu sprawia, że szybko dotrzesz tutaj z centrum miasta.
         </p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Kontakt</h2>
+        <address>
+            ul. 3 maja 54<br />
+            08-110 Siedlce<br />
+            Tel: 555-555-555
+        </address>
+        <address>
+            <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+            <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+        </address>
     </div>
 </div>

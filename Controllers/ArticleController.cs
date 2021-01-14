@@ -43,7 +43,7 @@ namespace MyClub.Controllers
 
         // GET: Article/Create
 
-        [Authorize(Roles = "Admin, Trainer, User")]
+        [Authorize(Roles = "Admin, Trainer")]
         public ActionResult Create()
         {
             return View();
@@ -54,7 +54,7 @@ namespace MyClub.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Trainer, User")]
+        [Authorize(Roles = "Admin, Trainer")]
         public ActionResult Create(Article article)
         {
             if (ModelState.IsValid)

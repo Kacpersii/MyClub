@@ -23,18 +23,11 @@ namespace MyClub.Controllers
         }
 
         // GET: IndividualTrainings/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            IndividualTraining individualTraining = db.IndividualTrainings.Find(id);
-            if (individualTraining == null)
-            {
-                return HttpNotFound();
-            }
-            return View(individualTraining);
+            var list = db.IndividualTrainings.Where(model => model.User.UserName == User.Identity.Name);
+
+            return View(list.ToList());
         }
 
         // GET: IndividualTrainings/Create

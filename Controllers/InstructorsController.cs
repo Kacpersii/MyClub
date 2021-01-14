@@ -40,7 +40,7 @@ namespace MyClub.Controllers
         // GET: Instructors/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName");
+            ViewBag.UserID = new SelectList(db.Users.Select(u => new { ID = u.ID, Name = u.Name + " " + u.Surname }), "ID", "Name");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace MyClub.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", instructor.UserID);
+            ViewBag.UserID = new SelectList(db.Users.Select(u => new { ID = u.ID, Name = u.Name + " " + u.Surname }), "ID", "Name");
             return View(instructor);
         }
 
@@ -74,7 +74,7 @@ namespace MyClub.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", instructor.UserID);
+            ViewBag.UserID = new SelectList(db.Users.Select(u => new { ID = u.ID, Name = u.Name + " " + u.Surname }), "ID", "Name");
             return View(instructor);
         }
 
@@ -92,7 +92,7 @@ namespace MyClub.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", instructor.UserID);
+            ViewBag.UserID = new SelectList(db.Users.Select(u => new { ID = u.ID, Name = u.Name + " " + u.Surname }), "ID", "Name");
             return View(instructor);
         }
 

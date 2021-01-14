@@ -9,7 +9,7 @@
 <div>
     <hr />
     <span style="float:right;">
-        @if (Context.User.IsInRole("Admin") || Context.User.IsInRole("Trainer"))
+        @if (Context.User.IsInRole("Admin") || User.Identity.Name == Model.User.UserName)
         {
             <a href='@Url.Action("Edit", "Article", new { id = Model.ID })'>
                 <button type="button" class="btn btn-primary">Edytuj artykuł</button>

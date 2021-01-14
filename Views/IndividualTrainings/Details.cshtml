@@ -1,50 +1,68 @@
-﻿@model MyClub.Models.IndividualTraining
+﻿@model IEnumerable<MyClub.Models.IndividualTraining>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Index";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>IndividualTraining</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Instructor.ID)
-        </dt>
+<br />
+<h1 class="text-center">Treningi indiwidualne</h1>
+<br />
+@if (Request.IsAuthenticated)
+{
+    <a href='@Url.Action("Create", "IndividualTrainings" )'>
+        <button type="button" class="btn btn-success">Zarezerwuj nowy trening</button>
+    </a>
+}
 
-        <dd>
-            @Html.DisplayFor(model => model.Instructor.ID)
-        </dd>
+<div class="container">
+    @if(Model.Count() == 0)
+    {
+        <h2 style="color: red">Brak zarezerwowanych treningów</h2>
+    }
+    <div class="row align-items-start">
+        @foreach (var item in Model)
+        {
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </dt>
+            <div class="jumbotron">
+                @if (Request.IsAuthenticated)
+                {
+                    if (User.Identity.Name == item.User.UserName)
+                    {
+                        <h2 style="color:orangered"><b>@Html.DisplayFor(modelItem => item.ID). Trening @Html.DisplayFor(modelItem => item.Date)</b></h2>
+                    }
+                    else
+                    {
+                        <h2>@Html.DisplayFor(modelItem => item.ID). Trening @Html.DisplayFor(modelItem => item.Date)</h2>
+                    }
+                }
+                else
+                {
+                    <h2>@Html.DisplayFor(modelItem => item.ID). Trening @Html.DisplayFor(modelItem => item.Date)</h2>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
+                <p><b>Imię i nazwisko: </b></p>
+                @Html.DisplayFor(modelItem => item.User.Name)
+                @Html.DisplayFor(modelItem => item.User.Surname)
 
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Place)
-        </dt>
+                <br />
+                <br />
+                <p><b>Instruktor:</b></p>
+                @Html.DisplayFor(modelItem => item.Instructor.User.Name)
+                @Html.DisplayFor(modelItem => item.Instructor.User.Surname)
+                <br />
+                <br />
 
-        <dd>
-            @Html.DisplayFor(model => model.Place)
-        </dd>
+                <p><b>Miejsce: </b></p>
 
-    </dl>
+                @Html.DisplayFor(modelItem => item.Place)
+            </div>
+
+
+
+        }
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
